@@ -1,0 +1,50 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, System.Diagnostics, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    Panel1: TPanel;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private 宣言 }
+    StopWatch : TStopWatch;
+   procedure DisplayTime(msTime: Int64);
+  public
+    { Public 宣言 }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  StopWatch := TStopwatch.StartNew;
+  DisplayTime(StopWatch.ElapsedMilliseconds);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  StopWatch.Stop;
+  DisplayTime(StopWatch.ElapsedMilliseconds);
+  Winapi.Windows.Beep(200, 800);
+end;
+
+procedure TForm1.DisplayTime(msTime: Int64);
+begin
+  Panel1.Caption := Format('%5.3f ', [msTime / 1000.0]);
+  Panel1.Update;
+end;
+
+end.
