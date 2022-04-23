@@ -38,7 +38,7 @@ implementation
 {$R *.dfm}
 procedure TForm3.FormCreate(Sender: TObject);
 begin
-  Timer1.Interval := 1000 ;  //インターバルを11秒に設定
+  Timer1.Interval := 1000 ;  //インターバルを1秒に設定
   timer ;
 end;
 
