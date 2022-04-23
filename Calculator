@@ -1,0 +1,96 @@
+unit Unit3;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+
+type
+  TForm3 = class(TForm)
+    Timer1: TTimer;
+    Start: TButton;
+    Stop: TButton;
+    Reset: TButton;
+    Panel1: TPanel;
+    procedure Timer1Timer(Sender: TObject);
+    procedure StartClick(Sender: TObject);
+    procedure StopClick(Sender: TObject);
+    procedure ResetClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+
+  private
+  　StopWatch : Boolean;
+    hour : Integer;
+    min : Byte;
+    sec : Byte;
+    procedure timer ;
+    procedure update ;
+
+  public
+  end;
+
+var
+  Form3: TForm3;
+
+implementation
+
+{$R *.dfm}
+procedure TForm3.FormCreate(Sender: TObject);
+begin
+  Timer1.Interval := 1000 ;  //インターバルを11秒に設定
+  timer ;
+end;
+
+//経過時間設定
+procedure TForm3.Timer1Timer(Sender: TObject);
+begin
+if not StopWatch then
+  Exit ;
+
+  sec := sec + 1 ;
+  min := min + Trunc( sec div 60 ) ;
+  sec := Trunc( sec mod 60 ) ;
+  hour := hour + Trunc( min div 60 ) ;
+  min  := Trunc( min mod 60 ) ;
+
+  update ;
+end;
+
+procedure TForm3.update ;
+begin
+  Panel1.Caption := Format( '%.2d:%.2d:%.2d' ,[ hour , min , sec ]) ;  //経過時間を表示
+  Panel1.Update ;  //経過時間を更新
+end;
+
+procedure TForm3.timer ;
+begin
+
+  //経過時間をリセット
+  StopWatch := False ;
+  hour := 0 ;
+  min  := 0 ;
+  sec  := 0 ;
+
+  update ;
+end ;
+
+//スタートボタンが押されたとき
+procedure TForm3.StartClick(Sender: TObject);
+begin
+  StopWatch := True ;
+end;
+
+//ストップボタンが押されたとき
+procedure TForm3.StopClick(Sender: TObject);
+begin
+  StopWatch := False ;
+end;
+
+//リセットボタンが押されたとき
+procedure TForm3.ResetClick(Sender: TObject);
+begin
+  timer ;
+end;
+
+end.
