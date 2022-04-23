@@ -1,0 +1,87 @@
+unit Unit4;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TForm4 = class(TForm)
+    Left: TEdit;
+    Center: TEdit;
+    Right: TEdit;
+    Start: TButton;
+    StopLeft: TButton;
+    TimerLeft: TTimer;
+    TimerCenter: TTimer;
+    TimerRight: TTimer;
+    StopCenter: TButton;
+    StopRight: TButton;
+    procedure StartClick(Sender: TObject);
+    procedure StopLeftClick(Sender: TObject);
+    procedure TimerLeftTimer(Sender: TObject);
+    procedure TimerCenterTimer(Sender: TObject);
+    procedure TimerRightTimer(Sender: TObject);
+    procedure StopCenterClick(Sender: TObject);
+    procedure StopRightClick(Sender: TObject);
+
+  private
+
+  public
+
+  end;
+
+var
+  Form4: TForm4;
+
+implementation
+
+{$R *.dfm}
+
+//スタートボタンが押されたときスロット開始
+procedure TForm4.StartClick(Sender: TObject);
+begin
+  Randomize();
+  TimerLeft.Enabled := True;
+  TimerCenter.Enabled := True;
+  TimerRight.Enabled := True;
+end;
+
+//左側のストップボタンが押されたとき
+procedure TForm4.StopLeftClick(Sender: TObject);
+begin
+  TimerLeft.Enabled := False;
+end;
+
+//真ん中のストップボタンが押されたとき
+procedure TForm4.StopCenterClick(Sender: TObject);
+begin
+  TimerCenter.Enabled := False;
+end;
+
+//右側のストップボタンが押されたとき
+procedure TForm4.StopRightClick(Sender: TObject);
+begin
+  TimerRight.Enabled := False;
+end;
+
+//左側用タイマー
+procedure TForm4.TimerLeftTimer(Sender: TObject);
+begin
+  Left.text := InttoStr(random(3));  //左側のエディットに乱数表示
+end;
+
+//真ん中用タイマー
+procedure TForm4.TimerCenterTimer(Sender: TObject);
+begin
+  Center.text := InttoStr(random(3));  //真ん中のエディットに乱数表示
+end;
+
+//右側用タイマー
+procedure TForm4.TimerRightTimer(Sender: TObject);
+begin
+  Right.text := InttoStr(random(3));  //右側のエディットに乱数表示
+end;
+
+end.
